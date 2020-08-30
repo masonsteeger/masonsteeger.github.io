@@ -1,3 +1,24 @@
 body{
-  background-color: green;
+  background-color: red;
+  text-align: center;
+  font-family: 'VT323', monospace;
+}
+h1{
+  font-size: 80px;
+  margin: 0;
+}
+.pokemon-info{
+  margin-top: 20px;
+  border: 1px solid black;
+  text-align: right;
+  margin: 20px;
+  background-color: rgb(160,202,174);
+}
+#name{
+  margin-right: 10px;
+  font-size: 40px;
+}
+#id{
+  margin-right: 10px;
+  font-size: 30px;
 }
