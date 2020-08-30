@@ -1,15 +1,17 @@
-
-
 $(() => {
   //When a search is performed
   $('form').on('submit' , event => {
     event.preventDefault();
-    //removing previous children from container div
-    $('.pokemon-info').children().remove();
-    //creating divs for serched pokemon stats/attr
+    //creating divs for pokemon information
     let $nameDiv = $('<div>').attr('id','name');
     let $idDiv = $('<div>').attr('id','id').text('Nat. Index: ');
     let $typeDiv = $('<div>').attr('id','type').text('Type:  ');
+    let $statsDiv = $('<div>').attr('id','stats')
+    let $evoDiv = $('<div>').attr('id','evolutions').text('vv Evolutions vv')
+    //removing previous children from divs
+    $('.pokemon-info').children().remove();
+    $('.stats').children().remove();
+    $('.evolutions').children().remove();
     //defining the user's desired pokemon search
     let userInput = ($('#search-bar').val().toLowerCase());
     if (userInput === ''){
@@ -21,11 +23,20 @@ $(() => {
       url: 'https://pokeapi.co/api/v2/pokemon/'+userInput
     }).then(
       data => {
-        //appending info to main div
-        $('.pokemon-info').append($nameDiv).append($idDiv).append($typeDiv)
+        //appending info divs to main div
+        $('.pokemon-info').append($nameDiv).append($idDiv).append($typeDiv);
+        $('.stats').text('vv Base Stats vv')
+        $('.stats').append($statsDiv);
+        $('.evolutions').append($evoDiv);
         //grabbing info from API
         let $name = (data.name);
         let $id = ('#'+data.id);
+        let $hp = (data.stats[0].base_stat);
+        let $atk = (data.stats[1].base_stat);
+        let $def = (data.stats[2].base_stat);
+        let $spatk = (data.stats[3].base_stat);
+        let $spdef = (data.stats[4].base_stat);
+        let $spd = (data.stats[5].base_stat);
         //appending name/id to main div
         $nameDiv.append($name).css('text-transform', 'capitalize');
         $idDiv.append($id);
@@ -74,8 +85,31 @@ $(() => {
           $typeDiv.append($typeColorDiv)
           $typeDiv.append(' ');
         }
-        
+        //appending stats to $statsDiv
+        let $hpDiv = $('<div>').text('HP: ');
+        let $atkDiv = $('<div>').text('ATK: ');
+        let $defDiv = $('<div>').text('DEF: ');
+        let $spatkDiv = $('<div>').text('SP. ATK: ');
+        let $spdefDiv = $('<div>').text('SP. DEF: ');
+        let $spdDiv = $('<div>').text('SPD: ');
+        let columnOne = $('<div>').attr('id','stat-column1');
+        let columnTwo = $('<div>').attr('id','stat-column2');
+        $hpDiv.append($hp);
+        $atkDiv.append($atk);
+        $defDiv.append($def);
+        $spatkDiv.append($spatk);
+        $spdefDiv.append($spdef);
+        $spdDiv.append($spd);
+        columnOne.append($hpDiv).append($atkDiv).append($defDiv);
+        columnTwo.append($spatkDiv).append($spdefDiv).append($spdDiv);
+
+        $('.stats').on('click', () => {
+          $statsDiv.append(columnOne).append(columnTwo);
+          columnOne.toggle();
+          columnTwo.toggle();
+        })
         $('.sprite').css('display', 'block')
+        console.log($hp,$atk,$def,$spatk,$spdef,$spd);
         console.log(data);
       }
     )
