@@ -1,23 +1,19 @@
 $(() => {
-  //When a search is performed
-  $('form').on('submit' , event => {
-    event.preventDefault();
+  let $id = null;
+  // function to pull data from API & append to divs
+  const pullData = (userInput) => {
     //creating divs for pokemon information
     let $nameDiv = $('<div>').attr('id','name');
-    let $idDiv = $('<div>').attr('id','id').text('Nat. Index: ');
+    let $idDiv = $('<div>').attr('id','id').text('Nat. Index: #');
     let $typeDiv = $('<div>').attr('id','type').text('Type:  ');
     let $statsDiv = $('<div>').attr('id','stats')
-    let $evoDiv = $('<div>').attr('id','evolutions').text('vv Evolutions vv')
+    let $statsMenu = $('<div>').text('vv Base Stats vv')
+    let $evoDiv = $('<div>').attr('id','evolutions')
+    let $evoMenu = $('<div>').text('vv Evolutions vv')
     //removing previous children from divs
     $('.pokemon-info').children().remove();
     $('.stats').children().remove();
     $('.evolutions').children().remove();
-    //defining the user's desired pokemon search
-    let userInput = ($('#search-bar').val().toLowerCase());
-    if (userInput === ''){
-      alert('Please Enter a Pokemon Name or National Index Number');
-      return
-    }
     $.ajax({
       //pulling individual pokemon data from the API via userInput
       url: 'https://pokeapi.co/api/v2/pokemon/'+userInput
@@ -25,12 +21,13 @@ $(() => {
       data => {
         //appending info divs to main div
         $('.pokemon-info').append($nameDiv).append($idDiv).append($typeDiv);
-        $('.stats').text('vv Base Stats vv')
+        $('.stats').append($statsMenu)
         $('.stats').append($statsDiv);
+        $('.evolutions').append($evoMenu);
         $('.evolutions').append($evoDiv);
         //grabbing info from API
         let $name = (data.name);
-        let $id = ('#'+data.id);
+        $id = (data.id);
         let $hp = (data.stats[0].base_stat);
         let $atk = (data.stats[1].base_stat);
         let $def = (data.stats[2].base_stat);
@@ -44,7 +41,6 @@ $(() => {
         for(i = 0; i < data.types.length; i++){
           let $type = (data.types[i].type.name);
           let $typeColorDiv = $('<div>').addClass('type')
-          console.log($type);
           if($type === 'normal'){
             $typeColorDiv.append($type).css('background-color', 'rgb(168,168,119)')
           }else if($type === 'fire'){
@@ -102,7 +98,7 @@ $(() => {
         $spdDiv.append($spd);
         columnOne.append($hpDiv).append($atkDiv).append($defDiv);
         columnTwo.append($spatkDiv).append($spdefDiv).append($spdDiv);
-
+        //toggling the appearance of stats div
         $('.stats').on('click', () => {
           $statsDiv.append(columnOne).append(columnTwo);
           columnOne.toggle();
@@ -113,7 +109,32 @@ $(() => {
         console.log(data);
       }
     )
+  }   //end of pullData()
+  //adding buttons for carousel
+  const leftButton = $('<button>').attr('type','submit').attr('id','back').text('<')
+  const rightButton = $('<button>').attr('type','submit').attr('id','forward').text('>')
+  $('.nav').prepend(leftButton)
+  $('.nav').append(rightButton)
+  //When a search is performed
+  $('form').on('submit' , event => {
+    event.preventDefault();
+    pullData(($('#search-bar').val().toLowerCase()));
     //resetting the search bar to be empty
     $('form').trigger('reset');
+  })
+  //carousel functions to cycle through pokemon index #s
+  $('#forward').on('click', () => {
+    let nextID = $id +=1
+    if (nextID > 893){
+      nextID = 1
+    }
+    pullData(nextID)
+  })
+  $('#back').on('click', () => {
+    let backID = $id -=1
+    if (backID < 1){
+      backID = 893
+    }
+    pullData(backID)
   })
 })
