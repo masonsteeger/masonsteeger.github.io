@@ -7,7 +7,7 @@ $(() => {
     //removing previous children from container div
     $('.pokemon-info').children().remove();
     //creating divs for serched pokemon stats/attr
-    let $nameDiv = $('<div>').attr('id','name').text('Name: ');
+    let $nameDiv = $('<div>').attr('id','name');
     let $idDiv = $('<div>').attr('id','id').text('Nat. Index: ');
     let $typeDiv = $('<div>').attr('id','type').text('Type:  ');
     //defining the user's desired pokemon search
@@ -17,7 +17,7 @@ $(() => {
       return
     }
     $.ajax({
-      //pulling data from the API via userInput
+      //pulling individual pokemon data from the API via userInput
       url: 'https://pokeapi.co/api/v2/pokemon/'+userInput
     }).then(
       data => {
@@ -26,6 +26,9 @@ $(() => {
         //grabbing info from API
         let $name = (data.name);
         let $id = ('#'+data.id);
+        //appending name/id to main div
+        $nameDiv.append($name).css('text-transform', 'capitalize');
+        $idDiv.append($id);
         //going through a loop to append types and assign type colors
         for(i = 0; i < data.types.length; i++){
           let $type = (data.types[i].type.name);
@@ -71,9 +74,8 @@ $(() => {
           $typeDiv.append($typeColorDiv)
           $typeDiv.append(' ');
         }
-        //appending name/id to main div
-        $nameDiv.append($name).css('text-transform', 'capitalize');
-        $idDiv.append($id);
+        
+        $('.sprite').css('display', 'block')
         console.log(data);
       }
     )
