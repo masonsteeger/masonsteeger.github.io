@@ -1,6 +1,6 @@
-/* *{
-  border: 1px solid gold;
-} */
+*{
+  max-width: 600px;
+}
 body{
   background-color: red;
   text-align: center;
@@ -23,7 +23,7 @@ h1{
 }
 .top-container{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .pokemon-info{
   margin: 20px;

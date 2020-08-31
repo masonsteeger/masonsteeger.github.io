@@ -21,12 +21,12 @@ $(() => {
       url: 'https://pokeapi.co/api/v2/pokemon-species/'+userInput
     }).then(
       data => {
-      console.log(data);
       userInput = (data.id)
-
+      let evoChain = (data.evolution_chain.url)
+      
 
       $.ajax({
-        //pulling individual pokemon data from the API via userInput
+        //pulling individual pokemon name, ID, type, and base stats
         url: 'https://pokeapi.co/api/v2/pokemon/'+userInput
       }).then(
         data => {
@@ -112,15 +112,13 @@ $(() => {
           $spdDiv.append($spd);
           columnOne.append($hpDiv).append($atkDiv).append($defDiv);
           columnTwo.append($spatkDiv).append($spdefDiv).append($spdDiv);
+          $statsDiv.append(columnOne).append(columnTwo);
           //toggling the appearance of stats div
           $('.stats').on('click', () => {
-            $statsDiv.append(columnOne).append(columnTwo);
             columnOne.toggle();
             columnTwo.toggle();
           })
           $('.sprite').css('display', 'block').css('background-image',`url(pokemon-art/${userInput}.png)`)
-          console.log($hp,$atk,$def,$spatk,$spdef,$spd);
-          console.log(data);
         }
       )
     })
