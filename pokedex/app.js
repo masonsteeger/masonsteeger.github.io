@@ -1,30 +1,77 @@
 $(() => {
   //setting userInput to be the first pokemon in the index
   let userInput = 1;
+  //to reference back to evoChain across scope
+  let evoChain = null
   // function to pull data from API & append to divs
   const pullData = () => {
     //creating divs for pokemon information
     let $nameDiv = $('<div>').attr('id','name');
     let $idDiv = $('<div>').attr('id','id').text('Nat. Index: #');
     let $typeDiv = $('<div>').attr('id','type').text('Type:  ');
-    let $statsDiv = $('<div>').attr('id','stats')
-    let $statsMenu = $('<div>').text('vv Base Stats vv')
-    let $evoDiv = $('<div>').attr('id','evolutions')
-    let $evoMenu = $('<div>').text('vv Evolutions vv')
+    let $statsDiv = $('<div>').attr('id','stats');
+    let $statsMenu = $('<div>').text('vv Base Stats vv');
+    let $evoDiv = $('<div>').attr('id','evolutions').css('display','none');
+    let $evoMenu = $('<div>').text('vv Evolutions vv');
     //removing previous children from divs & sprite display
     $('.sprite').css('display', 'none')
     $('.pokemon-info').children().remove();
     $('.stats').children().remove();
     $('.evolutions').children().remove();
+    // stuff for evolution chain data
+    const pullEvo = () => {
+      $.ajax({
+        url: evoChain
+      }).then(
+        data => {
+          //checking to see if a pokemon has any evolutions
+          if(data.chain.evolves_to.length > 0){
+            $('.evolutions').append($evoMenu);
+            $('.evolutions').append($evoDiv);
+            let evo1 = $('<div>').attr('id','evo1');
+            evo1.text(data.chain.species.name).css('text-transform','capitalize').css('margin-bottom','20px');
+            let evo2 = $('<div>').attr('id','evo2');
+            evo2.text(data.chain.evolves_to[0].species.name).css('text-transform','capitalize').css('margin-bottom','20px');
+            $evoDiv.append(evo1).append(evo2)
+            //checking to see if a pokemon has 3 evolutions in the chain
+            if(data.chain.evolves_to[0].evolves_to.length > 0){
+              let evo3 = $('<div>').attr('id','evo3');
+              evo3.text(data.chain.evolves_to[0].evolves_to[0].species.name).css('text-transform','capitalize').css('margin-bottom','20px');
+              $evoDiv.append(evo3);
+            }
+            $evoMenu.on('click', () => {
+              $evoDiv.toggle('slow');
+            })
+            console.log(data);
+            console.log(data.chain.species.name);
+            console.log(data.chain.evolves_to[0].species.name);
+            console.log(data.chain.evolves_to[0].evolves_to[0].species.name);
+          //if a pokemon has no evolutions
+          }else{
+            noEvo = $('<div>').text('No Evolutions');
+            $('.evolutions').append($evoMenu);
+            $('.evolutions').append($evoDiv);
+            $evoDiv.append(noEvo).css('display','none')
+            $evoMenu.on('click', () => {
+              $evoDiv.toggle('slow');
+            })
+          }
+
+
+
+        }
+      )
+    }
     $.ajax({
       //pulling individual species info from url and setting the userInput to the index number so the next ajax call can access it
       url: 'https://pokeapi.co/api/v2/pokemon-species/'+userInput
     }).then(
       data => {
       userInput = (data.id)
-      let evoChain = (data.evolution_chain.url)
-      
-
+      if(data.evolution_chain !== null){
+        evoChain = (data.evolution_chain.url)
+        pullEvo();
+      }
       $.ajax({
         //pulling individual pokemon name, ID, type, and base stats
         url: 'https://pokeapi.co/api/v2/pokemon/'+userInput
@@ -34,8 +81,6 @@ $(() => {
           $('.pokemon-info').append($nameDiv).append($idDiv).append($typeDiv);
           $('.stats').append($statsMenu)
           $('.stats').append($statsDiv);
-          $('.evolutions').append($evoMenu);
-          $('.evolutions').append($evoDiv);
           //grabbing info from API
           let $name = (data.species.name);
           if($name.length > 13){
@@ -102,8 +147,8 @@ $(() => {
           let $spatkDiv = $('<div>').text('SP. ATK: ');
           let $spdefDiv = $('<div>').text('SP. DEF: ');
           let $spdDiv = $('<div>').text('SPD: ');
-          let columnOne = $('<div>').attr('id','stat-column1');
-          let columnTwo = $('<div>').attr('id','stat-column2');
+          let columnOne = $('<div>').attr('id','stat-column1').css('display','none').css('margin-bottom','20px');
+          let columnTwo = $('<div>').attr('id','stat-column2').css('display','none').css('margin-bottom','20px');
           $hpDiv.append($hp);
           $atkDiv.append($atk);
           $defDiv.append($def);
@@ -112,11 +157,11 @@ $(() => {
           $spdDiv.append($spd);
           columnOne.append($hpDiv).append($atkDiv).append($defDiv);
           columnTwo.append($spatkDiv).append($spdefDiv).append($spdDiv);
-          $statsDiv.append(columnOne).append(columnTwo);
+          $statsDiv.append(columnOne).append(columnTwo)
           //toggling the appearance of stats div
           $('.stats').on('click', () => {
-            columnOne.toggle();
-            columnTwo.toggle();
+            columnOne.toggle('slow');
+            columnTwo.toggle('slow');
           })
           $('.sprite').css('display', 'block').css('background-image',`url(pokemon-art/${userInput}.png)`)
         }
