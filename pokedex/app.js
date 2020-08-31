@@ -26,7 +26,10 @@ $(() => {
         $('.evolutions').append($evoMenu);
         $('.evolutions').append($evoDiv);
         //grabbing info from API
-        let $name = (data.name);
+        let $name = (data.species.name);
+        if($name.length > 13){
+          $('#name').css('font-size', '48px')
+        }
         $id = (data.id);
         let $hp = (data.stats[0].base_stat);
         let $atk = (data.stats[1].base_stat);
@@ -137,4 +140,5 @@ $(() => {
     }
     pullData(backID)
   })
+  pullData(1);
 })
