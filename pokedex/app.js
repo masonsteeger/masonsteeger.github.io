@@ -11,7 +11,8 @@ $(() => {
     let $statsMenu = $('<div>').text('vv Base Stats vv')
     let $evoDiv = $('<div>').attr('id','evolutions')
     let $evoMenu = $('<div>').text('vv Evolutions vv')
-    //removing previous children from divs
+    //removing previous children from divs & sprite display
+    $('.sprite').css('display', 'none')
     $('.pokemon-info').children().remove();
     $('.stats').children().remove();
     $('.evolutions').children().remove();
@@ -117,7 +118,7 @@ $(() => {
             columnOne.toggle();
             columnTwo.toggle();
           })
-          $('.sprite').css('display', 'block')
+          $('.sprite').css('display', 'block').css('background-image',`url(pokemon-art/${userInput}.png)`)
           console.log($hp,$atk,$def,$spatk,$spdef,$spd);
           console.log(data);
         }

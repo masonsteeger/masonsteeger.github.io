@@ -34,10 +34,10 @@ h1{
 }
 .sprite{
   display: none;
+  background-size: contain;
   margin: 20px;
   height: 175px;
   width: 175px;
-  background-color: black;
 }
 .stats{
   text-align: center;
