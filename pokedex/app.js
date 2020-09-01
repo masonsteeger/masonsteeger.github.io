@@ -1,6 +1,6 @@
 $(() => {
   //setting userInput to be the first pokemon in the index
-  let userInput = 133;
+  let userInput = 1;
   //to reference back to evoChain across scope
   let evoChain = null;
   // function to pull data from API & append to divs
