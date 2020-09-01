@@ -1,8 +1,8 @@
 $(() => {
   //setting userInput to be the first pokemon in the index
-  let userInput = 1;
+  let userInput = 133;
   //to reference back to evoChain across scope
-  let evoChain = null
+  let evoChain = null;
   // function to pull data from API & append to divs
   const pullData = () => {
     //creating divs for pokemon information
@@ -12,7 +12,7 @@ $(() => {
     let $statsDiv = $('<div>').attr('id','stats');
     let $statsMenu = $('<div>').text('vv Base Stats vv');
     let $evoDiv = $('<div>').attr('id','evolutions').css('display','none');
-    let $evoMenu = $('<div>').text('vv Evolutions vv');
+    let $evoMenu = $('<div>').text('vv Evolution Chain vv');
     //removing previous children from divs & sprite display
     $('.sprite').css('display', 'none')
     $('.pokemon-info').children().remove();
@@ -20,48 +20,126 @@ $(() => {
     $('.evolutions').children().remove();
     // stuff for evolution chain data
     const pullEvo = () => {
+      //appending menu and content div to main div
+      $('.evolutions').append($evoMenu);
+      $('.evolutions').append($evoDiv);
       $.ajax({
-        url: evoChain
+        url: evoChain,
       }).then(
         data => {
           //checking to see if a pokemon has any evolutions
-          if(data.chain.evolves_to.length > 0){
-            $('.evolutions').append($evoMenu);
-            $('.evolutions').append($evoDiv);
-            let evo1 = $('<div>').attr('id','evo1');
-            evo1.text(data.chain.species.name).css('text-transform','capitalize').css('margin-bottom','20px');
-            let evo2 = $('<div>').attr('id','evo2');
-            evo2.text(data.chain.evolves_to[0].species.name).css('text-transform','capitalize').css('margin-bottom','20px');
-            $evoDiv.append(evo1).append(evo2)
+          if(data.chain.evolves_to.length === 1){
+            //setting names for evolutions
+            let evo1Div = $('<div>').attr('class','evo-div');
+            let evo1Name = $('<div>').text(data.chain.species.name).css('text-transform','capitalize');
+            let evo2Div = $('<div>').attr('class','evo-div');
+            let evo2Name = $('<div>').text(data.chain.evolves_to[0].species.name).css('text-transform','capitalize');
+            //grabbing IDs for evolutions
+            let evo1URL = data.chain.species.url;
+            let evo2URL = data.chain.evolves_to[0].species.url
+            //pulling ID from evolution data and appending appropriate png
+            $.ajax({
+              url: evo1URL
+            }).then(
+              data => {
+              let evo1ID = data.id;
+              let evo1Pic = $('<div>').attr('class', 'evo-sprite').attr('id','evo-1-pic').css('background-image',`url(pokemon-art/${evo1ID}.png)`);
+              evo1Div.prepend(evo1Pic);
+              evo1Pic.on('click', () => {
+                userInput = evo1ID;
+                pullData();
+              })
+            })
+            $.ajax({
+              url: evo2URL
+            }).then(
+              data => {
+              let evo2ID = data.id;
+              let evo2Pic = $('<div>').attr('class', 'evo-sprite').attr('id','evo-2-pic').css('background-image',`url(pokemon-art/${evo2ID}.png)`);
+              evo2Div.prepend(evo2Pic);
+              evo2Pic.on('click', () => {
+                userInput = evo2ID;
+                pullData();
+              })
+            })
+            evo1Div.append(evo1Name);
+            evo2Div.append(evo2Name);
+            //appending names to content div
+            $evoDiv.append(evo1Div).append(evo2Div)
             //checking to see if a pokemon has 3 evolutions in the chain
             if(data.chain.evolves_to[0].evolves_to.length > 0){
-              let evo3 = $('<div>').attr('id','evo3');
-              evo3.text(data.chain.evolves_to[0].evolves_to[0].species.name).css('text-transform','capitalize').css('margin-bottom','20px');
-              $evoDiv.append(evo3);
+              //adding div and setting name for 3rd evolution
+              let evo3Div = $('<div>').attr('class','evo-div');
+              let evo3Name = $('<div>').text(data.chain.evolves_to[0].evolves_to[0].species.name).css('text-transform','capitalize');
+              let evo3URL = data.chain.evolves_to[0].evolves_to[0].species.url;
+              //pulling ID for 3rd evolution
+              $.ajax({
+                url: evo3URL
+              }).then(
+                data => {
+                let evo3ID = data.id;
+                let evo3Pic = $('<div>').attr('class', 'evo-sprite').attr('id','evo-3-pic').css('background-image',`url(pokemon-art/${evo3ID}.png)`);
+                evo3Div.prepend(evo3Pic);
+                evo3Pic.on('click', () => {
+                  userInput = evo3ID;
+                  pullData();
+                })
+              })
+              //appending everything
+              evo3Div.append(evo3Name)
+              $evoDiv.append(evo3Div);
             }
-            $evoMenu.on('click', () => {
-              $evoDiv.toggle('slow');
-            })
-            console.log(data);
             console.log(data.chain.species.name);
             console.log(data.chain.evolves_to[0].species.name);
             console.log(data.chain.evolves_to[0].evolves_to[0].species.name);
-          //if a pokemon has no evolutions
-          }else{
-            noEvo = $('<div>').text('No Evolutions');
-            $('.evolutions').append($evoMenu);
-            $('.evolutions').append($evoDiv);
-            $evoDiv.append(noEvo).css('display','none')
-            $evoMenu.on('click', () => {
-              $evoDiv.toggle('slow');
+            //this one is essentially just for eevee bc i forgot it has like 600 billion evolutions and is the ugliest part of this ugly code and im so sorry for everything I've done wrong in my life up until this point to deserve this
+          }else if(data.chain.evolves_to.length > 1){
+            let evo1Div = $('<div>').attr('class','evo-div');
+            let evo1Name = $('<div>').text(data.chain.species.name).css('text-transform','capitalize');
+            let evo1URL = data.chain.species.url;
+            $.ajax({
+              url: evo1URL
+            }).then(
+              data => {
+              let evo1ID = data.id;
+              let evo1Pic = $('<div>').attr('class', 'evo-sprite').attr('id','evo-1-pic').css('background-image',`url(pokemon-art/${evo1ID}.png)`);
+              evo1Div.prepend(evo1Pic);
+              evo1Pic.on('click', () => {
+                userInput = evo1ID;
+                pullData();
+              })
             })
+            evo1Div.append(evo1Name);
+            $evoDiv.append(evo1Div)
+            for(let i = 0; i < data.chain.evolves_to.length; i++){
+              console.log(data.chain.evolves_to[i].species.name);
+              let evoiDiv = $('<div>').attr('class','evo-div');
+              let evoiName = $('<div>').text(data.chain.evolves_to[i].species.name);
+              evoiName.css('text-transform','capitalize');
+              evoiDiv.append(evoiName);
+              $evoDiv.append(evoiDiv);
+              let evoiURL = data.chain.evolves_to[i].species.url
+              $.ajax({
+                url : evoiURL
+              }).then( data => {
+                let evoiID = data.id
+                let evoiPic = $('<div>').attr('class', 'evo-sprite').attr('id', `${evoiID}`).css('background-image',`url(pokemon-art/${evoiID}.png)`)
+                evoiDiv.prepend(evoiPic)
+              })
+            }// end loop for creating all 842 bazillion of eevee's evolutions
+          $('.evo-div').on('click', event => {
+            userInput = $(event.target).attr('id')
+            pullData();
+          })
+          }else{  // if a pokemon has no evolutions
+            noEvo = $('<div>').text('No Evolutions');
+            $evoDiv.append(noEvo).css('display','none')
           }
-
-
-
-        }
-      )
-    }
+        }) //end ajax for pullEvo
+      $evoMenu.on('click', () => {
+        $evoDiv.toggle('slow');
+      })
+    } //end of pullEvo
     $.ajax({
       //pulling individual species info from url and setting the userInput to the index number so the next ajax call can access it
       url: 'https://pokeapi.co/api/v2/pokemon-species/'+userInput
@@ -187,14 +265,14 @@ $(() => {
     if (nextID > 893){
       userInput = 1
     }
-    pullData()
+    pullData();
   })
   $('#back').on('click', () => {
     let backID = userInput -=1
     if (backID < 1){
       userInput = 893
     }
-    pullData()
+    pullData();
   })
   pullData();
 })
