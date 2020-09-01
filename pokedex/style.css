@@ -19,7 +19,7 @@ h1{
 }
 .nav{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 .top-container{
   display: flex;
