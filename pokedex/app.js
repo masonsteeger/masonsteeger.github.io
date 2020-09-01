@@ -89,9 +89,6 @@ $(() => {
               evo3Div.append(evo3Name)
               $evoDiv.append(evo3Div);
             }
-            console.log(data.chain.species.name);
-            console.log(data.chain.evolves_to[0].species.name);
-            console.log(data.chain.evolves_to[0].evolves_to[0].species.name);
             //this one is essentially just for eevee bc i forgot it has like 600 billion evolutions and is the ugliest part of this ugly code and im so sorry for everything I've done wrong in my life up until this point to deserve this
           }else if(data.chain.evolves_to.length > 1){
             let evo1Div = $('<div>').attr('class','evo-div');
@@ -247,8 +244,8 @@ $(() => {
     })
   }   //end of pullData()
   //adding buttons for carousel
-  const leftButton = $('<div>').attr('type','submit').attr('id','back').css({'background-image': 'url(icons/left.png)','background-size': 'contain','background-repeat':'no-repeat','width':'100px','height': '100px'})
-  const rightButton = $('<div>').attr('type','submit').attr('id','forward').css({'background-image': 'url(icons/right.png)','background-size': 'contain','background-repeat':'no-repeat','width':'100px','height': '100px'})
+  const leftButton = $('<div>').attr('type','submit').attr('id','back').css({'background-image': 'url(icons/left.png)','background-size': 'contain','background-repeat':'no-repeat','width':'75px','height': '75px'})
+  const rightButton = $('<div>').attr('type','submit').attr('id','forward').css({'background-image': 'url(icons/right.png)','background-size': 'contain','background-repeat':'no-repeat','width':'75px','height': '75px'})
   $('.nav').prepend(leftButton)
   $('.nav').append(rightButton)
   //When a search is performed

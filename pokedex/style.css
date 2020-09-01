@@ -2,10 +2,12 @@
   border: 1px solid gold;
 } */
 body{
+  display: flex;
+  justify-content: center;
   background-color: red;
   text-align: center;
   font-family: 'VT323', monospace;
-
+  width: 100%;
 }
 h1{
   font-size: 80px;
@@ -26,7 +28,7 @@ h1{
   justify-content: center;
 }
 .pokemon-info{
-  margin: 20px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -36,9 +38,9 @@ h1{
   display: none;
   background-size: contain;
   background-repeat: no-repeat;
-  margin: 20px;
-  height: 175px;
-  width: 175px;
+  margin-top: 20px;
+  height: 110px;
+  width: 110px;
 }
 .stats{
   text-align: center;
@@ -49,10 +51,10 @@ h1{
   font-size: 36px;
 }
 #name{
-  font-size: 60px;
+  font-size: 30px;
 }
 #id{
-  font-size: 30px;
+  font-size: 20px;
 }
 .type{
   padding: 0 12px;
@@ -63,13 +65,14 @@ h1{
   color: white;
 }
 #type{
-  font-size: 30px;
+  font-size: 18px;
   display: flex;
   justify-content: flex-end;
 }
 #stats{
   display: flex;
   justify-content: space-around;
+  font-size: 24px;
 }
 #stat-column1{
   text-align: left;
@@ -87,10 +90,11 @@ h1{
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 30px;
 }
 .evo-sprite{
   background-size: contain;
   background-repeat: no-repeat;
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
 }
