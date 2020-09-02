@@ -252,8 +252,8 @@ $(() => {
     })
   }   //end of pullData()
   //adding buttons for carousel
-  const leftButton = $('<div>').attr('type','submit').attr('id','back').css({'background-image': 'url(icons/left.png)','background-size': 'contain','background-repeat':'no-repeat','width':'75px','height': '75px'})
-  const rightButton = $('<div>').attr('type','submit').attr('id','forward').css({'background-image': 'url(icons/right.png)','background-size': 'contain','background-repeat':'no-repeat','width':'75px','height': '75px'})
+  const leftButton = $('<div>').attr('type','submit').attr('id','back').css({'background-image': 'url(icons/left.png)','background-size': 'contain','background-repeat':'no-repeat'})
+  const rightButton = $('<div>').attr('type','submit').attr('id','forward').css({'background-image': 'url(icons/right.png)','background-size': 'contain','background-repeat':'no-repeat'})
   $('.nav').prepend(leftButton)
   $('.nav').append(rightButton)
   //When a search is performed
