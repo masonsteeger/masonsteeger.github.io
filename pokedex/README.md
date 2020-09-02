@@ -3,7 +3,7 @@
 ## Explanation
 This is basic a pokedex that will show you a pokemon's name, national index number, types, base stats, and evolutions
 
-##Link to Live Site
+## Link to Live Site
 https://masonsteeger.github.io/pokedex/
 
 ## Technologies Used
