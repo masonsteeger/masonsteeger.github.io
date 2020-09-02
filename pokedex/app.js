@@ -10,9 +10,17 @@ $(() => {
     let $idDiv = $('<div>').attr('id','id').text('Nat. Index: #');
     let $typeDiv = $('<div>').attr('id','type').text('Type:  ');
     let $statsDiv = $('<div>').attr('id','stats');
-    let $statsMenu = $('<div>').text('vv Base Stats vv');
+    let $statsMenu = $('<div>').attr('class','menu').text('Base Stats');
     let $evoDiv = $('<div>').attr('id','evolutions').css('display','none');
-    let $evoMenu = $('<div>').text('vv Evolution Chain vv');
+    let $evoMenu = $('<div>').attr('class','menu').text('Evolution Chain');
+    let $downArrow1 = $('<div>').attr('class','down').css({'background-image': 'url(icons/down.png)','background-size': 'contain','background-repeat':'no-repeat'})
+    let $downArrow2 = $('<div>').attr('class','down').css({'background-image': 'url(icons/down.png)','background-size': 'contain','background-repeat':'no-repeat'})
+    let $downArrow3 = $('<div>').attr('class','down').css({'background-image': 'url(icons/down.png)','background-size': 'contain','background-repeat':'no-repeat'})
+    let $downArrow4 = $('<div>').attr('class','down').css({'background-image': 'url(icons/down.png)','background-size': 'contain','background-repeat':'no-repeat'})
+    $evoMenu.append($downArrow1)
+    $evoMenu.prepend($downArrow2)
+    $statsMenu.append($downArrow3)
+    $statsMenu.prepend($downArrow4)
     //removing previous children from divs & sprite display
     $('.sprite').css('display', 'none')
     $('.pokemon-info').children().remove();

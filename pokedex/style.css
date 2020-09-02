@@ -29,8 +29,6 @@ h1{
   text-align: right;
   margin: 0;
   background-color: rgb(160,202,174);
-  min-width: 560px;
-  max-width: 560px;
 }
 form{
   margin-bottom: 1em;
@@ -60,6 +58,11 @@ form{
   text-align: center;
   font-size: 36px;
 }
+.down{
+  height: 36px;
+  width: 36px;
+  margin: 0 10px;
+}
 #name{
   font-size: 34px;
 }
@@ -78,6 +81,15 @@ form{
   font-size: 16px;
   display: flex;
   justify-content: flex-end;
+}
+.menu{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+#space{
+  height: 20px
 }
 #stats{
   display: flex;
@@ -108,6 +120,7 @@ form{
   background-repeat: no-repeat;
   height: 50px;
   width: 50px;
+  cursor: pointer;
 }
 
 .nav{
@@ -116,6 +129,9 @@ form{
   margin-top: 1em;
   margin-bottom: 2em;
 }
+
+/* DESKTOP DISPLAY*/
+
 @media (min-width: 601px) {
   h1{
     font-size: 140px;
@@ -156,11 +172,23 @@ form{
   .stats{
     font-size: 80px;
   }
+  .stats:hover{
+    animation: menu-hover;
+    animation-duration: .2s;
+  }
   #stats{
     font-size: 60px
   }
   .evolutions{
-    font-size: 70px;
+    font-size: 80px;
+  }
+  .evolutions:hover{
+    animation: menu-hover;
+    animation-duration: .2s;
+  }
+  .down{
+    height: 40px;
+    width: 40px;
   }
   .evo-div{
     font-size: 60px
@@ -175,13 +203,23 @@ form{
     height: 160px;
     width: 160px;
   }
+  #forward{
+    height: 200px;
+    width: 200px;
+  }
+  #back{
+    height: 200px;
+    width: 200px;
+  }
   #forward:hover{
     animation: forward-hover;
     animation-duration: .2s;
+    cursor: pointer;
   }
   #back:hover{
     animation: back-hover;
     animation-duration: .2s;
+    cursor: pointer;
   }
   /* ANIMAITONS */
 
@@ -198,5 +236,10 @@ form{
     0% {transform: translate(0px)}
     50% {transform: translate(-10px)}
     100% {transform: translate(0px)}
+  }
+  @keyframes menu-hover {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(10px);}
+    100% {transform: translateY(0px);}
   }
 }
