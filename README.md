@@ -1,2 +1,0 @@
-# masonsteeger.github.io
-Pokedex
