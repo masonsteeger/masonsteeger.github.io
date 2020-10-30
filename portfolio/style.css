@@ -149,6 +149,7 @@ nav{
   margin: 0;
 }
 .project-info > p{
+  font-family: 'Roboto', sans-serif;
   font-size: 26px;
 }
 
@@ -182,7 +183,8 @@ nav{
 }
 
 .bio > p{
-  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
   margin-top: 0;
   padding: 0 2em;
 }
