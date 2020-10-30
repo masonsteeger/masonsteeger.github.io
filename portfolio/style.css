@@ -256,7 +256,7 @@ nav{
 
 
 
-@media (max-width:812px) {
+@media only screen and (max-device-width:812px) {
   /* NAVBAR */
   nav{
     background-color: rgba(0,200,0,0.95);
