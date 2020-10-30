@@ -67,6 +67,8 @@ nav{
 /* HOME PAGE */
 #home-content{
   color:white;
+  margin-left: 15%;
+  margin-right: 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,6 +77,7 @@ nav{
 
 #home-content > h1{
   font-size: 66px;
+
   overflow: hidden;
   border-right: .5em solid green;
   white-space: nowrap;
@@ -264,7 +267,7 @@ nav{
 /* ANIMATIONS */
 @keyframes typing {
   from {width:0}
-  to {width:40%}
+  to {width:100%}
 }
 @keyframes typing-title {
   from {width:0}
@@ -275,5 +278,4 @@ nav{
   from {border-color: transparent}
   50% {border-color: green;}
   to {border-color: transparent}
-
 }

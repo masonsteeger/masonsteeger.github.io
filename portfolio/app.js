@@ -1,13 +1,13 @@
 console.log($);
 $(() => {
-
+  // MENU TOGGLE
   $('#menu-toggle').on('click', () => {
     $('#hidden-nav').toggle(500);
   })
 
 
 
-
+  // PAGES TOGGLE
   const toggleDivs = ($divID) => {
     $('#home-container, #project-container, #bio-container, #resume-container').addClass("hide")
     $('#home-container,#project-container, #bio-container, #resume-container').removeClass("show")
@@ -51,5 +51,28 @@ $(() => {
     $('#hidden-nav').toggle(1000);
     $('#title').html("RESUME")
   })
+
+  //LINKEDIN HOVER
+
+    $("#linkedin").hover(function(){
+      $(this).attr("src", function(index, attr){
+          return attr.replace("./icons/linkedin.png", "./icons/linkedin-hover.png");
+      });
+  }, function(){
+      $(this).attr("src", function(index, attr){
+          return attr.replace("./icons/linkedin-hover.png", "./icons/linkedin.png");
+      });
+  });
+  //GITHUB HOVER
+  $("#github").hover(function(){
+    $(this).attr("src", function(index, attr){
+        return attr.replace("./icons/github.png", "./icons/github-hover.png");
+    });
+  }, function(){
+    $(this).attr("src", function(index, attr){
+        return attr.replace("./icons/github-hover.png", "./icons/github.png");
+    });
+  });
+
 
 })
