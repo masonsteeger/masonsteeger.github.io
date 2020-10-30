@@ -29,6 +29,8 @@ nav{
   width: 94%;
   font-size: 26px;
 }
+
+
 .shown-nav{
   padding: 20px;
   display: flex;
@@ -70,9 +72,17 @@ nav{
   justify-content: center;
   align-items: center;
 }
+
 #home-content > h1{
   font-size: 66px;
-  margin-bottom: 10px;
+  overflow: hidden;
+  border-right: .5em solid green;
+  white-space: nowrap;
+  margin:0 auto;
+  letter-spacing: .1em;
+  animation:
+    typing 2s steps(26, end),
+    blinking .5s steps(1, end) infinite;
 }
 
 .home-nav{
@@ -80,6 +90,7 @@ nav{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 2em;
 }
 
 .home-button{
@@ -247,4 +258,22 @@ nav{
   cursor: pointer;
   text-decoration: underline;
   color: white;
+}
+
+
+/* ANIMATIONS */
+@keyframes typing {
+  from {width:0}
+  to {width:40%}
+}
+@keyframes typing-title {
+  from {width:0}
+  to {width:19%}
+}
+
+@keyframes blinking{
+  from {border-color: transparent}
+  50% {border-color: green;}
+  to {border-color: transparent}
+
 }
