@@ -22,6 +22,16 @@ nav{
 }
 
 
+#title{
+  overflow: hidden;
+  width:0%;
+  border-right: .5em solid black;
+  white-space: nowrap;
+  margin:0 auto;
+  animation: typing 1s steps(13, end) 1s forwards,
+  blinking-title .5s steps(1, end) infinite;
+}
+
 .shown-nav{
   padding: 20px;
   display: flex;
@@ -69,13 +79,14 @@ nav{
 
 .title > h1{
   font-size: 66px;
+  width:0%;
   overflow: hidden;
   border-right: .5em solid green;
   white-space: nowrap;
   margin:0 auto;
-  letter-spacing: .1em;
+  letter-spacing: .35em;
   animation:
-    typing 2s steps(26, end),
+    typing 2s steps(17, end) 1s forwards,
     blinking .5s steps(1, end) infinite;
 }
 
@@ -242,6 +253,7 @@ nav{
 
 .resume-content > a{
   text-decoration: none;
+  text-align: center;
   color: green;
   font-size: 46px;
   font-weight: bolder;
@@ -253,9 +265,11 @@ nav{
   text-decoration: underline;
   color: white;
 }
-
-
-
+/*  */
+/*  */
+/* MOBILE STYLING */
+/*  */
+/*  */
 @media only screen and (max-device-width:812px) {
   /* NAVBAR */
   nav{
@@ -270,6 +284,15 @@ nav{
     font-size: 46px;
   }
 
+  #title{
+    overflow: hidden;
+    width:0%;
+    border-right: .5em solid black;
+    white-space: nowrap;
+    margin:0 auto;
+    animation: typing 1s steps(13, end) 1s forwards,
+    blinking-title .5s steps(1, end) infinite;
+  }
 
   .shown-nav{
     padding: 20px;
@@ -318,13 +341,14 @@ nav{
 
   .title > h1{
     font-size: 86px;
+    width:0%;
     overflow: hidden;
     border-right: .5em solid green;
     white-space: nowrap;
     margin:0 auto;
     letter-spacing: .1em;
     animation:
-      typing 2s steps(26, end),
+      typing 2s steps(26, end) 1s forwards,
       blinking .5s steps(1, end) infinite;
   }
 
@@ -492,6 +516,7 @@ nav{
 
   .resume-content > a{
     text-decoration: none;
+    text-align: center;
     color: green;
     font-size: 46px;
     font-weight: bolder;
@@ -534,9 +559,10 @@ nav{
   from {width:0}
   to {width:100%}
 }
-@keyframes typing-title {
-  from {width:0}
-  to {width:100%}
+@keyframes blinking-title {
+  from {border-color: transparent}
+  50% {border-color: black;}
+  to {border-color: transparent}
 }
 
 @keyframes blinking{

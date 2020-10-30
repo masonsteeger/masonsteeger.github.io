@@ -75,17 +75,20 @@ $(() => {
   $('#nav-projects').on('click', () => {
     $('#hidden-nav').toggle(500, fadeDivs(`#project-container`));
     $toggleDivs('#project-container')
-    $('#title').html("PROJECTS")
+    $('#title').remove()
+    $('.title-type').append('<h1 id= "title">PROJECTS</h1>')
   })
   $('#nav-bio').on('click', () => {
     $('#hidden-nav').toggle(500, fadeDivs(`#bio-container`));
     $toggleDivs('#bio-container')
-    $('#title').html("BIO")
+    $('#title').remove()
+    $('.title-type').append('<h1 id= "title">BIO</h1>')
   })
   $('#nav-resume').on('click', () => {
     $('#hidden-nav').toggle(500, fadeDivs(`#resume-container`));
     $toggleDivs('#resume-container')
-    $('#title').html("RESUME")
+    $('#title').remove()
+    $('.title-type').append('<h1 id= "title">RESUME</h1>')
   })
 
 
