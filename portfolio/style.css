@@ -6,14 +6,6 @@ body{
   background-attachment: fixed;
   font-family: 'Gruppo', cursive;
 }
-.show{
-  display: block;
-}
-
-.hide{
-  display: none;
-}
-
 
 
 /* NAVBAR */
@@ -41,6 +33,7 @@ nav{
 #hidden-nav{
   padding-bottom: 20px;
 }
+
 .menu-closed{
   height: 40px;
   width: 40px;
@@ -278,4 +271,15 @@ nav{
   from {border-color: transparent}
   50% {border-color: green;}
   to {border-color: transparent}
+}
+
+
+
+/* SHOW/HIDE */
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
 }
